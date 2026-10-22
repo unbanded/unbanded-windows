@@ -1301,6 +1301,29 @@ class PatcherGUI(tk.Tk):
             self._set_status("Failed", P["ERROR"])
             messagebox.showerror("Unpatch", str(e))
 
+    def _is_admin(self):
+        try:
+            import ctypes
+            return bool(ctypes.windll.shell32.IsUserAnAdmin())
+        except Exception:
+            return False
+
+    def _elevate(self):
+        import ctypes
+        import sys
+        if getattr(sys, "frozen", False):
+            exe = sys.executable
+            params = " ".join('"' + a + '"' for a in sys.argv[1:])
+        else:
+            exe = sys.executable
+            params = " ".join('"' + a + '"' for a in sys.argv)
+        try:
+            ctypes.windll.shell32.ShellExecuteW(
+                None, "runas", exe, params, None, 1)
+            self.destroy()
+        except Exception as e:
+            messagebox.showerror("Elevation failed", str(e))
+
     def _on_patch(self):
         if self._running:
             return
@@ -1335,6 +1358,14 @@ class PatcherGUI(tk.Tk):
                     "Missing target",
                     "In-place target directory does not exist.")
                 return
+            if not self._is_admin():
+                if messagebox.askyesno(  # noqa: E501
+                        "Administrator required",
+                        "In-place patching modifies files under the BAND "
+                        "installation directory and requires Administrator "
+                        "privileges.\n\nRestart the patcher as Administrator now?"):  # noqa: E501
+                    self._elevate()
+                    return
         else:
             if not output:
                 messagebox.showerror(
@@ -1383,9 +1414,14 @@ class PatcherGUI(tk.Tk):
                     "Unbanded Patcher",
                     "Compatibility check passed." if dry_run else "Patching completed successfully.")  # noqa: E501
         except Exception as e:
-            self._log("ERROR: " + str(e), "err")
+            msg = str(e)
+            if isinstance(e, PermissionError) or "permission denied" in msg.lower():  # noqa: E501
+                msg += ("\n\nHint: in-place patching needs Administrator rights "  # noqa: E501
+                        "and the BAND app must be closed.\n"  # noqa: E501
+                        "Run the patcher as Administrator, close BAND, then retry.")  # noqa: E501
+            self._log("ERROR: " + msg, "err")
             self._set_status("Failed", P["ERROR"])
-            messagebox.showerror("Unbanded Patcher", str(e))
+            messagebox.showerror("Unbanded Patcher", msg)
         finally:
             self._running = False
             self._proc = None
