@@ -1324,6 +1324,8 @@ class PatcherGUI(tk.Tk):
             return
         if self.var_inplace_mode.get():
             if not self.var_inplace.get().strip():
+                self.var_inplace.set(source)
+            if not self.var_inplace.get().strip():
                 messagebox.showerror(
                     "Missing target",
                     "In-place mode requires a target directory.")
