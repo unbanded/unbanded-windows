@@ -1371,8 +1371,8 @@ class PatcherGUI(tk.Tk):
             else:
                 self._log("")
                 if dry_run:
-                    self._log("Patcher compatible.", "ok")
-                    self._set_status("Compatible", P["SUCCESS"])
+                    self._log("Compatibility check passed.", "ok")
+                    self._set_status("Compatibility check passed", P["SUCCESS"])  # noqa: E501
                 else:
                     self._log("SUCCESS", "ok")
                     self._set_status("Done", P["SUCCESS"])
@@ -1381,7 +1381,7 @@ class PatcherGUI(tk.Tk):
                 self._save_history()
                 messagebox.showinfo(
                     "Unbanded Patcher",
-                    "Patcher compatible." if dry_run else "Patching completed successfully.")  # noqa: E501
+                    "Compatibility check passed." if dry_run else "Patching completed successfully.")  # noqa: E501
         except Exception as e:
             self._log("ERROR: " + str(e), "err")
             self._set_status("Failed", P["ERROR"])
@@ -1655,7 +1655,7 @@ def do_patch(
     if not os.path.exists(userscript_path):
         raise FileNotFoundError("userscript not found at " + userscript_path)
     if dry_run:
-        log("Patcher compatible. No files written.")
+        log("Compatibility check passed. No files written.")
         return
 
     with open(userscript_path, "r", encoding="utf-8") as f:
