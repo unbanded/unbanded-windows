@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Patched output (generated)
+patched*/
+patched_*/
+*.patched.bak
+
+# Extracted asar trees (generated during verification)
+asar-extract/
+asar-*/
+/tmp/
+
+# User config (GUI)
+config.json
+%APPDATA%/
+
+# Auto-downloaded userscript (generated)
+unbanded.user.js
+
+# Nuitka build artifacts
+*.build
+*.dist
+*.onefile-build
+UnbandedPatcher.exe
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Temp
+*.tmp
