@@ -860,13 +860,13 @@ class PatcherGUI(tk.Tk):
             ("Forces BAND mode and adds a desktop header injection branch.", "Segoe UI", 10, P["TEXT"]),  # noqa: E501
             ("", "Segoe UI", 6, P["MUTED"]),
             ("Defaults:", "Segoe UI Semibold", 10, P["TEXT"]),  # noqa: E501
-            ("  Source:        C:\\Program Files\\BAND", "Consolas", 9, P["MUTED"]),
+            ("  Source:        C:\\Program Files\\BAND", "Consolas", 9, P["MUTED"]),  # noqa: E501
             ("  Userscript:    unbanded.user.js (auto-downloaded next to main.py)", "Consolas", 9, P["MUTED"]),  # noqa: E501
-            ("  Output:        %USERPROFILE%\\Downloads", "Consolas", 9, P["MUTED"]),
+            ("  Output:        %USERPROFILE%\\Downloads", "Consolas", 9, P["MUTED"]),  # noqa: E501
             ("  In-place:     optional (creates resources\\app.asar.bak)", "Consolas", 9, P["MUTED"]),  # noqa: E501
             ("", "Segoe UI", 6, P["MUTED"]),
             ("Safety:", "Segoe UI Semibold", 10, P["TEXT"]),
-            ("  - Original files are only read, never modified.", "Segoe UI", 9, P["MUTED"]),
+            ("  - Original files are only read, never modified.", "Segoe UI", 9, P["MUTED"]),  # noqa: E501
             ("  - In-place patching creates app.asar.bak before overwriting.", "Segoe UI", 9, P["MUTED"]),  # noqa: E501
             ("  - Re-running is idempotent.", "Segoe UI", 9, P["MUTED"]),
             ("", "Segoe UI", 6, P["MUTED"]),
@@ -879,7 +879,7 @@ class PatcherGUI(tk.Tk):
             try:
                 img = tk.PhotoImage(file=LOGO_PATH)
                 self._about_logo = img.subsample(8, 8)
-                tk.Label(box, image=self._about_logo, bg=P["CARD"]).pack(anchor="w", padx=16, pady=(8, 4))
+                tk.Label(box, image=self._about_logo, bg=P["CARD"]).pack(anchor="w", padx=16, pady=(8, 4))  # noqa: E501
             except Exception:
                 self._about_logo = None
         for text, font, size, color in lines:
@@ -1381,7 +1381,7 @@ class PatcherGUI(tk.Tk):
                 self._save_history()
                 messagebox.showinfo(
                     "Unbanded Patcher",
-                    "Patcher compatible." if dry_run else "Patching completed successfully.")
+                    "Patcher compatible." if dry_run else "Patching completed successfully.")  # noqa: E501
         except Exception as e:
             self._log("ERROR: " + str(e), "err")
             self._set_status("Failed", P["ERROR"])
