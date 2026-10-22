@@ -1376,7 +1376,7 @@ class PatcherGUI(tk.Tk):
                 self._save_history()
                 messagebox.showinfo(
                     "Unbanded Patcher",
-                    "Patching completed successfully.")
+                    "Patcher compatible." if dry_run else "Patching completed successfully.")
         except Exception as e:
             self._log("ERROR: " + str(e), "err")
             self._set_status("Failed", P["ERROR"])
