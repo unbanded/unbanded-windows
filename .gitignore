@@ -35,12 +35,19 @@ unbanded.user.js
 
 # Nuitka build artifacts
 *.build/
+*.build
 *.dist/
+*.dist
 *.onefile-build/
+*.onefile-build
 build/
 dist/
+.nuitka/
+nuitka-crash-*
 UnbandedPatcher.exe
+*.exe
 *.spec
+*.manifest
 
 # Editor / OS
 .vscode/
