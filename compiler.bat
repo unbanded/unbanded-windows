@@ -11,6 +11,12 @@ if errorlevel 1 (
     python -m pip install --upgrade nuitka || (echo Echec installation Nuitka & exit /b 1)
 )
 
+REM Installer imageio pour la conversion d'icone PNG
+python -c "import imageio" >nul 2>&1
+if errorlevel 1 (
+    python -m pip install imageio || (echo Echec installation imageio & exit /b 1)
+)
+
 echo Compilation en cours...
 python -m nuitka ^
     --standalone ^
@@ -18,6 +24,7 @@ python -m nuitka ^
     --windows-disable-console ^
     --enable-plugin=tk-inter ^
     --include-data-file=logo.png=logo.png ^
+    --windows-icon-from-ico=logo.png ^
     --output-filename=UnbandedPatcher.exe ^
     --remove-output ^
     main.py
