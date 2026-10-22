@@ -18,6 +18,8 @@ yarn-error.log*
 patched*/
 patched_*/
 *.patched.bak
+*.bak
+*.old
 
 # Extracted asar trees (generated during verification)
 asar-extract/
@@ -32,10 +34,13 @@ config.json
 unbanded.user.js
 
 # Nuitka build artifacts
-*.build
-*.dist
-*.onefile-build
+*.build/
+*.dist/
+*.onefile-build/
+build/
+dist/
 UnbandedPatcher.exe
+*.spec
 
 # Editor / OS
 .vscode/
